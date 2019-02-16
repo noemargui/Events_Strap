@@ -1,0 +1,52 @@
+<!-- Affichage d'un event -->
+
+<div class="card border-warning text-center m-5">
+
+  <div class="card-header">
+    <h1><i class="fas fa-sun"></i> <%= @event.title %></h1></br>
+
+    <%if @event.avatar.attached?%>
+      <%= image_tag @event.avatar.variant(resize: "200x200").processed, alt: 'avatar' %>
+    <%else%>
+      <p>=== Il n'y a pas encore d'avatar lié à cet event ===</p>
+    <%end%>
+
+      <%= form_tag event_avatars_path(@event), multipart: true do %>
+      <%= file_field_tag :avatar %>
+      <%= submit_tag "Change cover" %>
+    <% end %>
+
+  </div>
+  <div class="card-body text-warning">
+      <p class="m-2"><%= @event.description %></p>
+      <div class="card-body text-warning">
+        <ul class="card-text list-group">
+          <li class="list-group-item">Nombre de participants : <%= @event.attendees.count %></li>
+          <li class="list-group-item">Organisateur : <%= @event.administrator.email %></li>
+          <li class="list-group-item">Date de début : <%= @event.start_date.strftime("%m/%d/%y") %></li>
+          <li class="list-group-item">Date de fin : <%= @event.end_date %> (durée : <%= @event.duration %>)</li>
+          <li class="list-group-item">Lieu : <%= @event.location %></li></br>
+          <li class="list-group-item">Le prix : <%= @event.price %> €</li>
+        </ul>
+      </div>
+  </div>
+
+</div>
+<div class="text-center">
+  <% if current_user == @event.administrator %>
+  <% elsif @event.attendees.include? current_user %>
+  <% else %>
+    <%= link_to "Rejoindre l'event", new_event_attendance_path(@event), class: "btn btn-outline-danger btn-lg" %>
+  <% end %>
+</div>
+
+<div class="text-center">
+  <% if current_user == @event.administrator %>
+    <%= link_to "Mon espace évènement", event_attendances_path(@event), class: "btn btn-outline-danger btn-lg" %>
+  <% end %>
+</div>
+<!-- à utiliser pour faire en sorte qu'on puisse participer ssi on est ni admin ni attendee
+  def is_user_new_for_event?
+    if current_user != @event.admin && current_user != @event.attendees.find(current_user)
+    end
+  end

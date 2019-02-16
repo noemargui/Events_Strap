@@ -1,0 +1,23 @@
+</br></br></br></br>
+
+<div class="text-center">
+    <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <article>
+      <% if flash[:error].present? %>
+        <div id="error_explanation">
+          <p><%= flash[:error] %></p>
+        </div>
+      <% end %>
+      <label class="amount">
+        <span>Pour rejoindre l'event, sois gentil et paye <strong><%= @event.price.to_f %>€</strong>.</span></br></br>
+      </label>
+    </article>
+
+    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+            data-description="Paiement Event"
+            data-amount="<%= (@event.price) * 100 %>"
+            data-currency="eur"
+            data-locale="auto"></script>
+  <% end %>
+</div>

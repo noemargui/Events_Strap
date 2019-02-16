@@ -1,0 +1,30 @@
+<div class="text-center" style="margin-top: 5vh">
+  <h2>Espace Evènement</h2>
+ </div>
+
+  <div class="card border-warning  m-5">
+
+    <div class="card-header text-center">
+      <h1><i class="fas fa-sun"></i> <%= @event.title %></h1>
+    </div>
+    <div class="card-body text-primary">
+        <p class="m-2">Liste des participants (si Dieu le veut) à ton Event :</p>
+        <div class="card-body text-primary">
+          <ul class="card-text list-group">
+            <% @attendees.each do |attendee| %>
+              <li class="list-group-item">
+                Prénom : <%= attendee.first_name %></br>
+                Nom : <%= attendee.last_name %></br>
+                Email : <%= attendee.email %><br>
+              </li>
+            <% end %>
+            </br></br>
+            <p class="text-center">
+              <%= link_to "Le modifier", edit_event_path(params[:event_id]), :class => "btn btn-outline-success btn-mg" %>
+              <%= link_to "Le supprimer", event_path(params[:event_id]), :class => "btn btn-outline-danger btn-mg", :data => { :confirm => "Are you sure?" }, :method => "delete" %>
+            </p>
+          </ul>
+        </div>
+    </div>
+
+

@@ -1,0 +1,22 @@
+<!-- Accueil du site-->
+
+<div style="background:transparent !important" class="jumbotron">
+  <div class="container">
+    <center><h2 class="display-4 m-1 text-warning">Les Events du moment 🎪</h2></br>
+    <div class=" mb-4"><%= link_to "Créer un Event", new_event_path, :class => "btn btn-outline-danger btn-lg" %></div></center>
+  </div>
+</div>
+<!-- affichage des events -->
+  <div class="card-columns border-warning container ">
+  <% @events.each do |i| %>
+    <div class="card">
+      <div class="card-header text-center">
+        <h5 class="card-title text-danger"><%= i.title %></h5>
+      </div>
+      <div class="card-body text-center">
+        <p class="card-subtitle mb-3"><%= i.description %></p>
+        <%= link_to "En savoir plus", event_path(i.id),:class => "btn-outline-warning btn p-1"%>
+      </div>
+    </div>
+  <% end %>
+</div>

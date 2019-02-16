@@ -1,0 +1,38 @@
+<!-- Affichage de mon profil -->
+
+<center>
+<div style="width: 55%" class="card border-warning m-5 text-center">
+  <div class="card-header">
+    <h1><i class="fas fa-user-circle"></i></h1>
+  </div>
+  <div class="card-body text-warning">
+    <ul class="card-text list-group">
+      <% if current_user.first_name != nil %><li class="list-group-item">Prénom : <%= @user.first_name %></li><% end %>
+      <% if current_user.last_name != nil %><li class="list-group-item">Nom : <%= @user.last_name %></li><% end %>
+      <% if current_user.description != nil %><li class="list-group-item">Description : <%= @user.description %></li><% end %>
+      <li class="list-group-item">Email : <%= @user.email %></li>
+    </ul>
+  </div>
+</div>
+
+<div class="text-center mb-4">
+  <%= link_to "Modifier mes infos", edit_user_path(current_user.id), :class => "btn btn-outline-danger btn-lg mr-1" %>
+  <%= link_to "Changer mon email / mdp", edit_user_registration_path(current_user.id), :class => "btn btn-outline-danger btn-lg" %></br></br>
+</div>
+
+<% if @user.admin_events.count > 0 %>
+  <h2 class="text-center mb-5">Mes Events du moment... </h2>
+  <div class="card-columns border-warning container">
+    <% @user.admin_events.each do |i| %>
+      <div class="card">
+        <div class="card-header text-center">
+          <h5 class="card-title text-warning"><%= i.title %></h5>
+        </div>
+        <div class="card-body text-center">
+          <h6 class="card-subtitle mb-3"><%= i.description %></h6>
+          <%= link_to "Voir plus", event_path(i.id),:class => "btn-outline-warning btn p-1"%>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

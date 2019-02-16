@@ -1,0 +1,16 @@
+</br></br>
+<div class="card-columns border-warning container ">
+ <% @events.each do |event| %>
+   <div class="card">
+     <div class="card-header text-center">
+       <h5 class="card-title text-danger"><%= event.title %></h5>
+     </div>
+      <div class="card-body text-center">
+       <p class="card-subtitle mb-3"><%= event.description %></p>
+       <%= link_to "Afficher", admin_event_path(event.id),:class => "btn-outline-warning btn p-1"%>
+       <%= link_to "Modifier", edit_admin_event_path(event.id),:class => "btn-outline-warning btn p-1"%>
+       <a href="/admin/events/<%= event.id %>" class="btn btn-outline-danger p-1" data-confirm="Tu es sûr?" data-method="delete">Supprimer</a>
+      </div>
+   </div>
+ <% end %>
+</div>
